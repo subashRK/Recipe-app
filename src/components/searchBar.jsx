@@ -2,25 +2,28 @@ import React, { useState } from "react"
 import { TextField, Button, Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 
-const SearchBar = ({ fetchQuery }) => {
+const SearchBar = ({ fetchQuery, setRecipies }) => {
   
   const [search, setSearch] = useState("")
-  const [disabled, setDisabled] = useState(true)
 
   const handleSubmit = e => {
     e.preventDefault()
 
     if (search.trim() !== "") {
+      setRecipies(null)
+
       fetchQuery(search)
     } else {
       return;
     }
   }
 
-  const handleChange = e => {
-    setSearch(e.target.value)
-
-    if (search !== "") setDisabled(false)
+  const isDisabled = () => {
+    if (search === "") {
+      return true
+    } else {
+      return false
+    }
   }
 
   const styles = useStyles()
@@ -42,12 +45,12 @@ const SearchBar = ({ fetchQuery }) => {
           placeholder="search"
           required={true}
           value={search}
-          onChange={handleChange}
+          onChange={e => setSearch(e.target.value)}
         />
         <Button
           className={styles.button}
           variant="contained"
-          disabled={disabled}
+          disabled={isDisabled()}
           type="submit"
           disableElevation
         >

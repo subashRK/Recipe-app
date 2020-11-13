@@ -20,7 +20,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <SearchBar fetchQuery={fetchQuery} />
+      <SearchBar fetchQuery={fetchQuery} setRecipies={setRecipies} />
       <Recipies recipies={recipies} />
     </div>
   );
